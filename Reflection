@@ -1,0 +1,41 @@
+
+struct Person{
+    let name:String
+    let age:Int
+    let complexion:String
+}
+
+
+extension Person:Equatable{
+    static func ==(lhs: Person, rhs: Person) -> Bool {
+        var lhsDump = String()
+        dump(lhs, to: &lhsDump)
+        
+        var rhsDump = String()
+        dump(rhs, to: &rhsDump)
+        
+        return lhs == rhs
+    }
+}
+    
+let p1 = Person(name: "Lakshaya", age: 26, complexion: "Fair")
+let p2 = Person(name: "Lakshaya", age: 26, complexion: "Fair")
+
+
+
+func check(){
+    if p1 == p2 {
+        print("Equal")
+    } else {
+        print("Unequal")
+    }
+}
+
+func mirrorImplementation(){
+    let personMirror = Mirror(reflecting: p1)
+    
+    for(fname,value) in personMirror.children{
+        guard let name = fname else{continue}
+        print("\(name): \(type(of: value)) = '\(value)'")
+    }
+}
